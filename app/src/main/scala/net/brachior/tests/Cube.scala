@@ -2,8 +2,7 @@ package net.brachior.tests
 
 import org.denigma.threejs._
 import org.denigma.threejs.extras.OrbitControls
-import org.scalajs.dom
-import org.scalajs.dom.{document, window}
+import org.scalajs.dom.{Event, document, window}
 
 import scala.scalajs.js.Dynamic.{global => g, literal => l}
 
@@ -24,9 +23,8 @@ object CubeScalaJSDOM {
     // Add to DOM
     document.body.appendChild(renderer.domElement)
 
-    // Callbacks
-    window.addEventListener("resize", { event: dom.Event => {
-      camera.aspect = window.innerWidth / window.innerHeight
+    window.addEventListener("resize", { event: Event => {
+      camera.aspect = window.innerWidth.asInstanceOf[Double] / window.innerHeight.asInstanceOf[Double]
       camera.updateProjectionMatrix()
       renderer.setSize(window.innerWidth, window.innerHeight)
     }
@@ -66,7 +64,7 @@ object CubeScalaJSDOM {
   }
 
   def initCamera(): PerspectiveCamera = {
-    val camera = new PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1.0, 1000.0)
+    val camera = new PerspectiveCamera(60, window.innerWidth.asInstanceOf[Double] / window.innerHeight.asInstanceOf[Double], 1.0, 1000.0)
     camera.position.z = 70
 
     camera
@@ -104,8 +102,8 @@ object CubeScalaJSDOM {
 object CubeScalaJSGlobal {
   private val window = g.window
   private val document = g.document
-  private val width: Double = window.innerWidth.asInstanceOf[Int]
-  private val height: Double = window.innerHeight.asInstanceOf[Int]
+  private val width: Double = window.innerWidth.asInstanceOf[Double]
+  private val height: Double = window.innerHeight.asInstanceOf[Double]
 
   private val renderer: WebGLRenderer = initRenderer()
 
@@ -123,8 +121,8 @@ object CubeScalaJSGlobal {
 
     // Callbacks
     window.addEventListener("resize", () => {
-      val width: Double = window.innerWidth.asInstanceOf[Int]
-      val height: Double = window.innerHeight.asInstanceOf[Int]
+      val width: Double = window.innerWidth.asInstanceOf[Double]
+      val height: Double = window.innerHeight.asInstanceOf[Double]
       camera.aspect = width / height
       camera.updateProjectionMatrix()
       renderer.setSize(width, height)
