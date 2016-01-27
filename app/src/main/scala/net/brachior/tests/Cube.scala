@@ -26,7 +26,6 @@ object CubeScalaJSDOM {
 
     // Callbacks
     window.addEventListener("resize", { event: dom.Event => {
-      println("resize", window.innerWidth, window.innerHeight)
       camera.aspect = window.innerWidth / window.innerHeight
       camera.updateProjectionMatrix()
       renderer.setSize(window.innerWidth, window.innerHeight)
@@ -60,7 +59,6 @@ object CubeScalaJSDOM {
     val renderer = new WebGLRenderer(parameters)
     renderer.gammaInput = true
     renderer.gammaOutput = true
-    println("initRenderer", window.innerWidth, window.innerHeight)
     renderer.setSize(window.innerWidth, window.innerHeight)
     renderer.setClearColor(new Color(0x252525), 1.0)
 
@@ -68,7 +66,6 @@ object CubeScalaJSDOM {
   }
 
   def initCamera(): PerspectiveCamera = {
-    println("initCamera", window.innerWidth, window.innerHeight)
     val camera = new PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1.0, 1000.0)
     camera.position.z = 70
 

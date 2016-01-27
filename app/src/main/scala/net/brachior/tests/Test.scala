@@ -1,41 +1,45 @@
 package net.brachior.tests
 
 import org.scalajs.dom.raw.Element
+import org.scalajs.dom.{MouseEvent, document, html}
 
 import scala.scalajs.js.{Function1, JSApp}
-import org.scalajs.dom.{html, document}
 
 object Test extends JSApp {
   private val title: Element = document.createElement("h1")
 
   def main(): Unit = {
-    val cubeDom = createButton("Cube DOM", {(event: String) => {
+    val cubeDom = createButton("Cube DOM", { (event: MouseEvent) => {
       stop()
       title.innerHTML = "Cube (scalajs.dom)"
       CubeScalaJSDOM.start()
-    }})
+    }
+    })
 
-    val cubeGlobal = createButton("Cube Globals", {(event: String) => {
+    val cubeGlobal = createButton("Cube Globals", { (event: MouseEvent) => {
       stop()
       title.innerHTML = "Cube (globals)"
       CubeScalaJSGlobal.start()
-    }})
+    }
+    })
 
-    val accDom = createButton("Acc. DOM", {(event: String) => {
+    val accDom = createButton("Acc. DOM", { (event: MouseEvent) => {
       stop()
       title.innerHTML = "Accelerometer (scalajs.dom)"
       AccelerometerScalaJSDOM.start()
-    }})
+    }
+    })
 
-    val accGlobal = createButton("Acc. Globals", {(event: String) => {
+    val accGlobal = createButton("Acc. Globals", { (event: MouseEvent) => {
       stop()
       title.innerHTML = "Accelerometer (globals)"
       AccelerometerScalaJSGlobal.start()
-    }})
+    }
+    })
 
-    val dom = document.createElement("div").asInstanceOf[html.Div]
-    dom.style.width = "100%"
-    dom.style.textAlign = "center"
+    val head = document.createElement("div").asInstanceOf[html.Div]
+    head.style.width = "100%"
+    head.style.textAlign = "center"
 
     val div = document.createElement("div")
     div.appendChild(cubeDom)
@@ -45,9 +49,9 @@ object Test extends JSApp {
 
     title.innerHTML = "Nothing"
 
-    dom.appendChild(title)
-    dom.appendChild(div)
-    document.body.appendChild(dom)
+    head.appendChild(title)
+    head.appendChild(div)
+    document.body.appendChild(head)
   }
 
   def stop(): Unit = {
@@ -57,7 +61,7 @@ object Test extends JSApp {
     CubeScalaJSGlobal.stop()
   }
 
-  def createButton(name: String, callback: Function1[String, _]): Element = {
+  def createButton(name: String, callback: Function1[MouseEvent, _]): Element = {
     val button = document.createElement("button")
     button.innerHTML = name
     button.addEventListener("click", callback)

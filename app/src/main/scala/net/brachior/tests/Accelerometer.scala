@@ -1,11 +1,9 @@
 package net.brachior.tests
 
-import org.scalajs.dom
+import org.scalajs.dom.document
 
 import scala.scalajs.js
 import scala.scalajs.js.Dynamic.{global => g, literal => l}
-
-import dom.document
 
 object AccelerometerScalaJSDOM {
   private val navigator = g.navigator
