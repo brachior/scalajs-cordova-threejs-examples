@@ -3,7 +3,7 @@ package net.brachior.tests
 import org.denigma.threejs.extras.OrbitControls
 import org.denigma.threejs._
 
-import scala.scalajs.js.Dynamic.{global => g}
+import scala.scalajs.js.Dynamic.{global => g, literal => l}
 
 import org.scalajs.dom
 import dom.document
@@ -55,7 +55,8 @@ object CubeScalaJSDOM {
   }
 
   def initRenderer(): WebGLRenderer = {
-    val renderer = new WebGLRenderer()
+    val parameters = l(antialias = true).asInstanceOf[WebGLRendererParameters]
+    val renderer = new WebGLRenderer(parameters)
     renderer.gammaInput = true
     renderer.gammaOutput = true
     renderer.setSize(window.innerWidth, window.innerHeight)
@@ -87,8 +88,8 @@ object CubeScalaJSDOM {
     // geometry
     val geometry = new BoxGeometry(20, 20, 20)
     val texture = ImageUtils.loadTexture("img/whynot.png")
-    val material = new MeshPhongMaterial()
-    material.map = texture
+    val parameters = l(map = texture).asInstanceOf[MeshPhongMaterialParameters]
+    val material = new MeshPhongMaterial(parameters)
 
     val mesh = new Mesh(geometry, material)
     scene.add(mesh)
@@ -145,7 +146,8 @@ object CubeScalaJSGlobal {
   }
 
   def initRenderer(): WebGLRenderer = {
-    val renderer = new WebGLRenderer()
+    val parameters = l(antialias = true).asInstanceOf[WebGLRendererParameters]
+    val renderer = new WebGLRenderer(parameters)
     renderer.gammaInput = true
     renderer.gammaOutput = true
     renderer.setSize(width, height)
@@ -177,8 +179,8 @@ object CubeScalaJSGlobal {
     // geometry
     val geometry = new BoxGeometry(20, 20, 20)
     val texture = ImageUtils.loadTexture("img/whynot.png")
-    val material = new MeshPhongMaterial()
-    material.map = texture
+    val parameters = l(map = texture).asInstanceOf[MeshPhongMaterialParameters]
+    val material = new MeshPhongMaterial(parameters)
 
     val mesh = new Mesh(geometry, material)
     scene.add(mesh)
