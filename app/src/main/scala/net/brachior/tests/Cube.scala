@@ -1,13 +1,11 @@
 package net.brachior.tests
 
-import org.denigma.threejs.extras.OrbitControls
 import org.denigma.threejs._
+import org.denigma.threejs.extras.OrbitControls
+import org.scalajs.dom
+import org.scalajs.dom.{document, window}
 
 import scala.scalajs.js.Dynamic.{global => g, literal => l}
-
-import org.scalajs.dom
-import dom.document
-import dom.window
 
 // original javascript code from Thibault Coppex
 
@@ -27,11 +25,13 @@ object CubeScalaJSDOM {
     document.body.appendChild(renderer.domElement)
 
     // Callbacks
-    window.addEventListener("resize", {event: dom.Event => {
+    window.addEventListener("resize", { event: dom.Event => {
+      println("resize", window.innerWidth, window.innerHeight)
       camera.aspect = window.innerWidth / window.innerHeight
       camera.updateProjectionMatrix()
       renderer.setSize(window.innerWidth, window.innerHeight)
-    }}, useCapture = false)
+    }
+    }, useCapture = false)
 
     started = true
 
@@ -46,9 +46,10 @@ object CubeScalaJSDOM {
   }
 
   def animate(): Unit = {
-    window.requestAnimationFrame({step: Double => {
+    window.requestAnimationFrame({ step: Double => {
       animate()
-    }})
+    }
+    })
 
     cameraControls.update()
     renderer.render(scene, camera)
@@ -59,6 +60,7 @@ object CubeScalaJSDOM {
     val renderer = new WebGLRenderer(parameters)
     renderer.gammaInput = true
     renderer.gammaOutput = true
+    println("initRenderer", window.innerWidth, window.innerHeight)
     renderer.setSize(window.innerWidth, window.innerHeight)
     renderer.setClearColor(new Color(0x252525), 1.0)
 
@@ -66,6 +68,7 @@ object CubeScalaJSDOM {
   }
 
   def initCamera(): PerspectiveCamera = {
+    println("initCamera", window.innerWidth, window.innerHeight)
     val camera = new PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1.0, 1000.0)
     camera.position.z = 70
 
@@ -87,12 +90,15 @@ object CubeScalaJSDOM {
 
     // geometry
     val geometry = new BoxGeometry(20, 20, 20)
-    val texture = ImageUtils.loadTexture("img/whynot.png")
-    val parameters = l(map = texture).asInstanceOf[MeshPhongMaterialParameters]
-    val material = new MeshPhongMaterial(parameters)
+    val loader = new TextureLoader()
+    loader.load("img/whynot.png", { (texture: Texture) => {
+      val parameters = l(map = texture).asInstanceOf[MeshPhongMaterialParameters]
+      val material = new MeshPhongMaterial(parameters)
 
-    val mesh = new Mesh(geometry, material)
-    scene.add(mesh)
+      val mesh = new Mesh(geometry, material)
+      scene.add(mesh)
+    }
+    })
 
     scene
   }
@@ -100,6 +106,7 @@ object CubeScalaJSDOM {
 
 object CubeScalaJSGlobal {
   private val window = g.window
+  private val document = g.document
   private val width: Double = window.innerWidth.asInstanceOf[Int]
   private val height: Double = window.innerHeight.asInstanceOf[Int]
 
@@ -178,12 +185,15 @@ object CubeScalaJSGlobal {
 
     // geometry
     val geometry = new BoxGeometry(20, 20, 20)
-    val texture = ImageUtils.loadTexture("img/whynot.png")
-    val parameters = l(map = texture).asInstanceOf[MeshPhongMaterialParameters]
-    val material = new MeshPhongMaterial(parameters)
+    val loader = new TextureLoader()
+    loader.load("img/whynot.png", { (texture: Texture) => {
+      val parameters = l(map = texture).asInstanceOf[MeshPhongMaterialParameters]
+      val material = new MeshPhongMaterial(parameters)
 
-    val mesh = new Mesh(geometry, material)
-    scene.add(mesh)
+      val mesh = new Mesh(geometry, material)
+      scene.add(mesh)
+    }
+    })
 
     scene
   }
