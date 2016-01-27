@@ -3,14 +3,15 @@ package net.brachior.tests
 import org.denigma.threejs.extras.OrbitControls
 import org.denigma.threejs._
 
-import scala.scalajs.js.JSApp
 import scala.scalajs.js.Dynamic.{global => g}
 
 import org.scalajs.dom
 import dom.document
 import dom.window
 
-object CubeScalaJSDOM extends JSApp {
+// original javascript code from Thibault Coppex
+
+object CubeScalaJSDOM {
   private val renderer: WebGLRenderer = initRenderer()
 
   private val camera: PerspectiveCamera = initCamera()
@@ -19,7 +20,9 @@ object CubeScalaJSDOM extends JSApp {
 
   private val scene: Scene = initScene()
 
-  def main(): Unit = {
+  private var started = false
+
+  def start(): Unit = {
     // Add to DOM
     document.body.appendChild(renderer.domElement)
 
@@ -30,7 +33,16 @@ object CubeScalaJSDOM extends JSApp {
       renderer.setSize(window.innerWidth, window.innerHeight)
     }}, useCapture = false)
 
+    started = true
+
     animate()
+  }
+
+  def stop(): Unit = {
+    if (started) {
+      document.body.removeChild(renderer.domElement)
+      started = false
+    }
   }
 
   def animate(): Unit = {
@@ -85,7 +97,7 @@ object CubeScalaJSDOM extends JSApp {
   }
 }
 
-object CubeScalaJSGlobal extends JSApp {
+object CubeScalaJSGlobal {
   private val window = g.window
   private val width: Double = window.innerWidth.asInstanceOf[Int]
   private val height: Double = window.innerHeight.asInstanceOf[Int]
@@ -98,7 +110,9 @@ object CubeScalaJSGlobal extends JSApp {
 
   private val scene: Scene = initScene()
 
-  def main(): Unit = {
+  private var started = false
+
+  def start(): Unit = {
     // Add to DOM
     document.body.appendChild(renderer.domElement)
 
@@ -111,7 +125,16 @@ object CubeScalaJSGlobal extends JSApp {
       renderer.setSize(width, height)
     }, false)
 
+    started = true
+
     animate()
+  }
+
+  def stop(): Unit = {
+    if (started) {
+      document.body.removeChild(renderer.domElement)
+      started = false
+    }
   }
 
   def animate(): Unit = {

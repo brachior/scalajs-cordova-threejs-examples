@@ -4,19 +4,18 @@ import org.scalajs.dom
 
 import scala.scalajs.js
 import scala.scalajs.js.Dynamic.{global => g, literal => l}
-import scala.scalajs.js.JSApp
 
 import dom.document
 
-object AccelerometerScalaJSDOM extends JSApp {
+object AccelerometerScalaJSDOM {
   private val navigator = g.navigator
 
   private val dom = document.createElement("div")
-  document.body.appendChild(dom)
 
   private var watcher: js.Any = null
 
-  def main(): Unit = {
+  def start(): Unit = {
+    document.body.appendChild(dom)
     watcher = navigator.accelerometer.watchAcceleration(
       {
         speed: Speed => {
@@ -31,20 +30,24 @@ object AccelerometerScalaJSDOM extends JSApp {
   }
 
   def stop(): Unit = {
-    navigator.accelerometer.clearWatch(watcher)
+    if (watcher != null) {
+      navigator.accelerometer.clearWatch(watcher)
+      document.body.removeChild(dom)
+      watcher = null
+    }
   }
 }
 
-object AccelerometerScalaJSGlobal extends JSApp {
+object AccelerometerScalaJSGlobal {
   private val navigator = g.navigator
   private val document = g.document
 
   private val dom = document.createElement("div")
-  document.body.appendChild(dom)
 
   private var watcher: js.Any = null
 
-  def main(): Unit = {
+  def start(): Unit = {
+    document.body.appendChild(dom)
     watcher = navigator.accelerometer.watchAcceleration(
       {
         speed: Speed => {
@@ -59,7 +62,11 @@ object AccelerometerScalaJSGlobal extends JSApp {
   }
 
   def stop(): Unit = {
-    navigator.accelerometer.clearWatch(watcher)
+    if (watcher != null) {
+      navigator.accelerometer.clearWatch(watcher)
+      document.body.removeChild(dom)
+      watcher = null
+    }
   }
 }
 

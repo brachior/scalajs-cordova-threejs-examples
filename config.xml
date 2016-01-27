@@ -2,8 +2,9 @@
 <widget id="net.brachior.tests" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Test</name>
     <description>
-        Some tests of ScalaJS with Cordova and ThreeJS
+        Some tests using ScalaJS with Cordova and ThreeJS
     </description>
+    <icon src="www/img/logo.png" />
     <author email="brachior@gmail.com">Jerome Pilliet</author>
     <content src="index.html" />
     <access origin="*" />
