@@ -9,31 +9,17 @@ object Test extends JSApp {
   private val title: Element = document.createElement("h1")
 
   def main(): Unit = {
-    val cubeDom = createButton("Cube DOM", { (event: MouseEvent) => {
+    val cubeDom = createButton("Cube (ThreeJS)", { (event: MouseEvent) => {
       stop()
-      title.innerHTML = "Cube (scalajs.dom)"
-      CubeScalaJSDOM.start()
+      title.innerHTML = "Cube (ThreeJS)"
+      Cube.start()
     }
     })
 
-    val cubeGlobal = createButton("Cube Globals", { (event: MouseEvent) => {
+    val accDom = createButton("Acc. (Cordova)", { (event: MouseEvent) => {
       stop()
-      title.innerHTML = "Cube (globals)"
-      CubeScalaJSGlobal.start()
-    }
-    })
-
-    val accDom = createButton("Acc. DOM", { (event: MouseEvent) => {
-      stop()
-      title.innerHTML = "Accelerometer (scalajs.dom)"
-      AccelerometerScalaJSDOM.start()
-    }
-    })
-
-    val accGlobal = createButton("Acc. Globals", { (event: MouseEvent) => {
-      stop()
-      title.innerHTML = "Accelerometer (globals)"
-      AccelerometerScalaJSGlobal.start()
+      title.innerHTML = "Accelerometer (Cordova)"
+      Accelerometer.start()
     }
     })
 
@@ -43,9 +29,9 @@ object Test extends JSApp {
 
     val div = document.createElement("div")
     div.appendChild(cubeDom)
-    div.appendChild(cubeGlobal)
+    //    div.appendChild(cubeGlobal)
     div.appendChild(accDom)
-    div.appendChild(accGlobal)
+    //    div.appendChild(accGlobal)
 
     title.innerHTML = "Nothing"
 
@@ -55,10 +41,8 @@ object Test extends JSApp {
   }
 
   def stop(): Unit = {
-    AccelerometerScalaJSDOM.stop()
-    AccelerometerScalaJSGlobal.stop()
-    CubeScalaJSDOM.stop()
-    CubeScalaJSGlobal.stop()
+    Accelerometer.stop()
+    Cube.stop()
   }
 
   def createButton(name: String, callback: Function1[MouseEvent, _]): Element = {

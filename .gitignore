@@ -1,3 +1,5 @@
+www/js/app/
+
 ### SBT template
 # Simple Build Tool
 # http://www.scala-sbt.org/release/docs/Getting-Started/Directories.html#configuring-version-control
@@ -6,7 +8,6 @@ target/
 lib_managed/
 src_managed/
 project/boot/
-.history
 .cache
 ### Scala template
 *.class
@@ -57,7 +58,6 @@ tramp
 *_flymake.*
 
 # eshell files
-/eshell/history
 /eshell/lastdir
 
 # elpa packages

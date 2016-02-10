@@ -11,14 +11,13 @@ to compile we need [SBT](http://www.scala-sbt.org/).
 In a terminal, go to the app directory and type:
 
     sbt
-    > ~fullOptJS
-
-The *"~"* runs a watcher on the Scala project.
+    > packageJSDependencies
+    > fullOptJS
 
 We test the accelerometer, but the default [Cordova plugin](https://github.com/apache/cordova-plugin-device-motion)
 generates random values for the browser so, we use a modified plugin:
 
-    cordova plugin add https://bitbucket.org/jpilliet/cordova-plugin-device-motion.git
+    cordova plugin add https://github.com/brachior/cordova-plugin-device-motion.git
 
 ### Browser
 
