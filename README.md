@@ -1,5 +1,7 @@
 # Some tests using ScalaJS, Cordova and ThreeJS
 
+You can see the result on your browser [here](http://brachior.github.io/scalajs-cordova-threejs-examples/).
+
 ## Installation
 
 First, you need [Cordova](http://cordova.apache.org/):
